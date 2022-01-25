@@ -271,6 +271,7 @@ export default class Auth0Client {
     // TODO: Check for cookie
 
     try {
+      if (DEBUG) console.log("checking session");
       await this.getTokenSilently(options);
     } catch (error) {
       if (!RECOVERABLE_ERRORS.includes((error as any).error)) {
@@ -299,6 +300,7 @@ export default class Auth0Client {
   public async getTokenSilently(
     options: GetTokenSilentlyOptions = {}
   ): Promise<string | GetTokenSilentlyVerboseResult> {
+    if (DEBUG) console.log("getting token silently on detailed response");
     return singlePromise(
       () =>
         this._getTokenSilently({
@@ -318,6 +320,7 @@ export default class Auth0Client {
   private async _getTokenSilently(
     options: GetTokenSilentlyOptions = {}
   ): Promise<string | GetTokenSilentlyVerboseResult> {
+    if (DEBUG) console.log("getting token silently verbose");
     const { ignoreCache, ...getTokenOptions } = options;
     if (DEBUG) console.log("_getTokenSilently", options);
     if (!ignoreCache && getTokenOptions.scope) {
