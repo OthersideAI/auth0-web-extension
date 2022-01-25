@@ -100,6 +100,7 @@ export default class Auth0Client {
 
       cache = factory();
     }
+    console.log("103");
 
     this.scope = this.options.scope;
 
@@ -115,6 +116,7 @@ export default class Auth0Client {
 
     this.domainUrl = getDomain(this.options.domain);
     this.tokenIssuer = getTokenIssuer(this.options.issuer, this.domainUrl);
+    console.log("119");
 
     this.defaultScope = getUniqueScopes(
       "openid",
@@ -426,10 +428,11 @@ export default class Auth0Client {
 
     try {
       const queryOptions = { active: true, currentWindow: true };
+      console.log("checking current tab");
       let [currentTab] = await browser.tabs.query(queryOptions);
-
       const { id } = currentTab || {};
 
+      console.log("got current tab");
       if (!id) {
         throw "Could not access current tab.";
       }
