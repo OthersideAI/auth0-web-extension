@@ -73,6 +73,7 @@ export default class Auth0Client {
 
   constructor(private options: Auth0ClientOptions) {
     validateCrypto();
+    if (DEBUG) console.log("factory started");
 
     // TODO: find a way to validate we are running in a background script
 
