@@ -77,8 +77,16 @@ const runIFrame = async (
     iframe.setAttribute("width", "500px");
     iframe.setAttribute("height", "500px");
     iframe.style.display = "block";
+    iframe.style.backgroundColor = "pink";
+    iframe.style.display = "block";
+    iframe.style.position = "absolute";
+    iframe.style.top = "0";
+    iframe.style.left = "0";
+    iframe.style.zIndex = "9999";
+    iframe.id = "HELLOFRIEND";
 
     const removeIframe = () => {
+      console.log("removing iframe");
       if (window.document.body.contains(iframe)) {
         window.document.body.removeChild(iframe);
         window.removeEventListener("message", iframeEventHandler, false);
@@ -87,8 +95,10 @@ const runIFrame = async (
 
     let iframeEventHandler: (e: MessageEvent) => void;
 
+    console.log("setting timeout to remove little guy");
     const timeoutSetTimeoutId = setTimeout(() => {
       rej(new TimeoutError());
+      console.log("removing iFrame");
       removeIframe();
     }, timeoutInSeconds * 1000);
 
@@ -97,6 +107,7 @@ const runIFrame = async (
       if (!e.data || e.data.type !== "authorization_response") return;
 
       const eventSource = e.source;
+      console.log("got response: ", e.source);
 
       if (eventSource) {
         (eventSource as any).close();
@@ -115,6 +126,7 @@ const runIFrame = async (
     };
 
     window.addEventListener("message", iframeEventHandler, false);
+    console.log("adding iframe");
     window.document.body.appendChild(iframe);
     iframe.setAttribute("src", authorizeUrl);
   });
