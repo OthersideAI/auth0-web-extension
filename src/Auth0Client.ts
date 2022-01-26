@@ -276,6 +276,7 @@ export default class Auth0Client {
       if (DEBUG) console.log("checking session");
       await this.getTokenSilently(options);
     } catch (error) {
+      console.log("error: ", error);
       if (!RECOVERABLE_ERRORS.includes((error as any).error)) {
         throw error;
       }
@@ -371,7 +372,7 @@ export default class Auth0Client {
         // TODO: Save to cookies
 
         if (options.detailedResponse) {
-          console.log("checking detailed response");
+          console.log("checking detailed response from ", authResult);
           const { id_token, access_token, oauthTokenScope, expires_in } =
             authResult;
 
@@ -403,6 +404,7 @@ export default class Auth0Client {
   private async _getTokenFromIfFrame(
     options: GetTokenSilentlyOptions
   ): Promise<GetTokenSilentlyResult> {
+    console.log("getting token from iFrame");
     const stateIn = encode(createSecureRandomString());
     const nonceIn = encode(createSecureRandomString());
     const code_verifier = createSecureRandomString();
@@ -480,6 +482,7 @@ export default class Auth0Client {
       });
 
       if (stateIn !== codeResult.state) {
+        console.log("STATE IN NOT CODE RESULT STATE");
         throw new Error("Invalid state");
       }
 
