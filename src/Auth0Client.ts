@@ -362,6 +362,7 @@ export default class Auth0Client {
           ? await this._getTokenUsingRefreshToken(getTokenOptions)
           : await this._getTokenFromIfFrame(getTokenOptions);
 
+        console.log("setting cache manager");
         await this.cacheManager.set({
           client_id: this.options.client_id,
           ...authResult,
@@ -370,6 +371,7 @@ export default class Auth0Client {
         // TODO: Save to cookies
 
         if (options.detailedResponse) {
+          console.log("checking detailed response");
           const { id_token, access_token, oauthTokenScope, expires_in } =
             authResult;
 
@@ -407,6 +409,7 @@ export default class Auth0Client {
     const code_challengeBuffer = await sha256(code_verifier);
     const code_challenge = bufferToBase64UrlEncoded(code_challengeBuffer);
 
+    console.log("checking params");
     const params = this._getParams(
       options,
       stateIn,
@@ -417,12 +420,14 @@ export default class Auth0Client {
 
     // TODO: Add support for organizations
 
+    console.log("getting authorized url");
     const url = this._authorizeUrl({
       ...params,
       prompt: "none",
       response_mode: "web_message",
     });
 
+    console.log("setting timeout");
     const timeout =
       options.timeoutInSeconds || this.options.authorizeTimeoutInSeconds;
 
@@ -437,13 +442,16 @@ export default class Auth0Client {
         throw "Could not access current tab.";
       }
 
+      console.log("checking content script");
       // This will throw if there is not a content script running
       await browser.tabs.sendMessage(id, "");
 
+      console.log("getting result from child iframe");
       const codeResult: AuthenticationResult = await new Promise((resolve) => {
         const parentPort = browser.tabs.connect(id, { name: PARENT_PORT_NAME });
-
         const handler = (childPort: browser.Runtime.Port) => {
+          console.log("hitting up child port", childPort.name);
+
           if (childPort.name === CHILD_PORT_NAME) {
             childPort.onMessage.addListener((message) => {
               resolve(message);
@@ -453,7 +461,10 @@ export default class Auth0Client {
 
               browser.runtime.onConnect.removeListener(handler);
             });
-
+            console.log(
+              "firing message to child port; name is ",
+              childPort.name
+            );
             childPort.postMessage({
               authorizeUrl: url,
               domainUrl: this.domainUrl,

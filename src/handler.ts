@@ -49,7 +49,7 @@ export function handleTokenRequest(redirectUri: string) {
             window.document.body.removeChild(iframe);
           });
         };
-
+        console.log("adding handler to port");
         port.onMessage.addListener(handler);
       }
     });
