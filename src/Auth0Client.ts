@@ -444,7 +444,7 @@ export default class Auth0Client {
         throw "Could not access current tab.";
       }
 
-      console.log("checking content script");
+      console.log("checking content script to id", id);
       // This will throw if there is not a content script running
       await browser.tabs.sendMessage(id, "");
 
