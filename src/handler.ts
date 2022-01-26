@@ -10,6 +10,7 @@ const DEBUG = true;
 
 // We can probably pull redirectUri from background script at some point
 export function handleTokenRequest(redirectUri: string) {
+  console.log("in handleTokenRequest");
   if (window.location.origin === redirectUri) {
     if (DEBUG)
       console.log(
