@@ -447,7 +447,7 @@ export default class Auth0Client {
 
       console.log("checking content script to id", id);
       // This will throw if there is not a content script running
-      await browser.tabs.sendMessage(id, "");
+      // await browser.tabs.sendMessage(id, "");
 
       //this doesn't log cause it goes to the child now actually
       console.log("getting result from child iframe");

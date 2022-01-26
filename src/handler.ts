@@ -20,6 +20,7 @@ export function handleTokenRequest(redirectUri: string) {
     const port = browser.runtime.connect(undefined, { name: CHILD_PORT_NAME });
 
     const handler = async (message: any, port: browser.Runtime.Port) => {
+      console.log("I SEE A MESSAGE");
       if (port.name === CHILD_PORT_NAME) {
         const { authorizeUrl, domainUrl } = message;
 
@@ -38,6 +39,7 @@ export function handleTokenRequest(redirectUri: string) {
         window.location.origin
       );
     browser.runtime.onConnect.addListener((port) => {
+      console.log("adding handler");
       if (port.name === PARENT_PORT_NAME) {
         console.log("creating parent iframe");
         const handler = () => {
@@ -60,6 +62,8 @@ export function handleTokenRequest(redirectUri: string) {
         };
         console.log("adding handler to port");
         port.onMessage.addListener(handler);
+      } else {
+        console.log("the else was fired");
       }
     });
   }
