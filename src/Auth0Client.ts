@@ -477,7 +477,7 @@ export default class Auth0Client {
         };
 
         browser.runtime.onConnect.addListener(handler);
-
+        console.log("posting message to parent port");
         parentPort.postMessage({
           redirectUri: params.redirect_uri,
         });
