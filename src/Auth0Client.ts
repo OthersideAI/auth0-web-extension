@@ -441,6 +441,7 @@ export default class Auth0Client {
 
       console.log("got current tab");
       if (!id) {
+        console.log("no current tab");
         throw "Could not access current tab.";
       }
 
