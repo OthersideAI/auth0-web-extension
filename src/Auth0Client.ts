@@ -449,6 +449,7 @@ export default class Auth0Client {
       // This will throw if there is not a content script running
       await browser.tabs.sendMessage(id, "");
 
+      //this doesn't log cause it goes to the child now actually
       console.log("getting result from child iframe");
       const codeResult: AuthenticationResult = await new Promise((resolve) => {
         const parentPort = browser.tabs.connect(id, { name: PARENT_PORT_NAME });
@@ -525,6 +526,7 @@ export default class Auth0Client {
         audience: params.audience || "default",
       };
     } catch (e) {
+      console.log("error getting token from iFrame", e);
       if ((e as any).error === "login_required") {
         // TODO: Log user out
       }
