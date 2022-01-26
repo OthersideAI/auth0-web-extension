@@ -45,7 +45,10 @@ export function handleTokenRequest(redirectUri: string) {
 
           iframe.setAttribute("width", "500px");
           iframe.setAttribute("height", "500px");
+          iframe.style.backgroundColor = "pink";
           iframe.style.display = "block";
+          iframe.style.position = "absolute";
+          iframe.style.zIndex = "9999";
 
           document.body.appendChild(iframe);
           iframe.setAttribute("src", redirectUri);
