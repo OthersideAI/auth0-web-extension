@@ -429,9 +429,9 @@ export default class Auth0Client {
       response_mode: "web_message",
     });
 
-    console.log("setting timeout");
     const timeout =
       options.timeoutInSeconds || this.options.authorizeTimeoutInSeconds;
+    console.log("setting timeout to ", timeout);
 
     try {
       const queryOptions = { active: true, currentWindow: true };
