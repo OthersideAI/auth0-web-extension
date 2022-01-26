@@ -30,7 +30,12 @@ export function handleTokenRequest(redirectUri: string) {
 
     port.onMessage.addListener(handler);
   } else {
-    if (DEBUG) console.log("handleTokenRequest: redirectUri does not match");
+    if (DEBUG)
+      console.log(
+        "handleTokenRequest: redirectUri does not match: ",
+        redirectUri,
+        window.location.origin
+      );
     browser.runtime.onConnect.addListener((port) => {
       if (port.name === PARENT_PORT_NAME) {
         console.log("creating parent iframe");
