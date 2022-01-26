@@ -43,9 +43,9 @@ export function handleTokenRequest(redirectUri: string) {
         const handler = () => {
           const iframe = document.createElement("iframe");
 
-          iframe.setAttribute("width", "0");
-          iframe.setAttribute("height", "0");
-          iframe.style.display = "none";
+          iframe.setAttribute("width", "500px");
+          iframe.setAttribute("height", "500px");
+          iframe.style.display = "block";
 
           document.body.appendChild(iframe);
           iframe.setAttribute("src", redirectUri);
@@ -71,9 +71,9 @@ const runIFrame = async (
   return new Promise<AuthenticationResult>((res, rej) => {
     const iframe = window.document.createElement("iframe");
 
-    iframe.setAttribute("width", "0");
-    iframe.setAttribute("height", "0");
-    iframe.style.display = "none";
+    iframe.setAttribute("width", "500px");
+    iframe.setAttribute("height", "500px");
+    iframe.style.display = "block";
 
     const removeIframe = () => {
       if (window.document.body.contains(iframe)) {
