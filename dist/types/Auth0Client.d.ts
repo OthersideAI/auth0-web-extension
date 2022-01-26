@@ -11,7 +11,7 @@ export default class Auth0Client {
     private defaultScope;
     private scope;
     private nowProvider;
-    cacheLocation: CacheLocation | null;
+    cacheLocation: CacheLocation;
     constructor(options: Auth0ClientOptions);
     private _url;
     private _getParams;
