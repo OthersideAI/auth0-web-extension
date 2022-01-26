@@ -86,11 +86,11 @@ const runIFrame = async (
     iframe.id = "HELLOFRIEND";
 
     const removeIframe = () => {
-      console.log("removing iframe");
-      if (window.document.body.contains(iframe)) {
-        window.document.body.removeChild(iframe);
-        window.removeEventListener("message", iframeEventHandler, false);
-      }
+      console.log("removing iframe; jk jk");
+      // if (window.document.body.contains(iframe)) {
+      //   window.document.body.removeChild(iframe);
+      //   window.removeEventListener("message", iframeEventHandler, false);
+      // }
     };
 
     let iframeEventHandler: (e: MessageEvent) => void;
