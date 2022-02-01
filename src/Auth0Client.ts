@@ -149,6 +149,12 @@ export default class Auth0Client {
     this.customOptions = getCustomInitialOptions(options);
 
     this.messenger.addMessageListener((message, sender) => {
+        if (this.options.debug) {
+          console.log(
+            '[auth0-web-extension] GOT MESSAGE:', message
+          );
+        }
+
       switch (message.type) {
         case 'auth-result':
           if (sender.tab?.id) {
